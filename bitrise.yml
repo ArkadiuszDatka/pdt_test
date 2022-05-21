@@ -1,0 +1,74 @@
+---
+format_version: '11'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: flutter
+workflows:
+  _pr_nofitier:
+    description: |
+      Builds project and runs tests.
+
+      Next steps:
+      - Check out [Getting started with Flutter apps](https://devcenter.bitrise.io/en/getting-started/getting-started-with-flutter-apps.html).
+    steps:
+    - script@1:
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+
+            if [ "$GITHUB_PR_IS_DRAFT" = true ] ; then
+            exit 1
+            fi
+        is_always_run: true
+    - slack@3.3:
+        inputs:
+        - api_token: "$SLACK_BOT_TOKEN"
+        - channel: "#bitrise_slack"
+        - text: ''
+        - thread_ts: ''
+        - title_link: ''
+        - image_url: ''
+        - thumb_url: ''
+        - webhook_url_on_error: ''
+        - channel_on_error: ''
+        - text_on_error: ''
+        - pretext: ''
+        - footer: "$GIT_CLONE_COMMIT_AUTHOR_NAME | "
+        - fields: ''
+        - buttons: GitHub PR|${REPO_PR_URL_PREFIX}${BITRISE_PULL_REQUEST}
+        - from_username_on_error: ''
+        - pretext_on_error: ''
+        - message: ''
+        - from_username: ''
+        - author_name: ''
+        - title: "$BITRISE_GIT_MESSAGE"
+        - webhook_url: "$SLACK_BOT_TOKEN"
+        is_always_run: false
+  primary:
+    description: |
+      Builds project and runs tests.
+
+      Next steps:
+      - Check out [Getting started with Flutter apps](https://devcenter.bitrise.io/en/getting-started/getting-started-with-flutter-apps.html).
+    steps:
+    - activate-ssh-key@4: {}
+    - git-clone@6: {}
+    - cache-pull@2: {}
+    - cache-push@2: {}
+    - deploy-to-bitrise-io@2: {}
+    after_run:
+    - _pr_nofitier
+meta:
+  bitrise.io:
+    stack: osx-xcode-13.2.x
+app:
+  envs:
+  - opts:
+      is_expand: false
+    BITRISE_FLUTTER_PROJECT_LOCATION: "."
+  - opts:
+      is_expand: false
+    REPO_PR_URL_PREFIX: https://github.com/ArkadiuszDatka/pdt_test/pull/
+trigger_map:
+- pull_request_source_branch: "*"
+  pull_request_target_branch: master
+  workflow: primary
