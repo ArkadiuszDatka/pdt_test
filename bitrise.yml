@@ -42,7 +42,7 @@ workflows:
         - author_name: ''
         - title: "$BITRISE_GIT_MESSAGE"
         - webhook_url: "$SLACK_BOT_TOKEN"
-        is_always_run: false
+        is_always_run: "$GITHUB_PR_IS_DRAFT"
   primary:
     description: |
       Builds project and runs tests.
