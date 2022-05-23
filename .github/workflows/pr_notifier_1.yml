@@ -3,7 +3,7 @@ name: Slack Pull Request Open Notification
 on:
   pull_request:
     types: [opened, reopened]
-    branches: [ master ]
+    branches: [ develop ]
 
 jobs:
   build:
