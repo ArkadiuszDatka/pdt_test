@@ -3,7 +3,6 @@ name: Slack
 on:
   pull_request:
     types: [ready_for_review]
-    branches: [ develop2 ]
     
 jobs:
   build:
