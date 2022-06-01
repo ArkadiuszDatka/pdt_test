@@ -1,8 +1,7 @@
 name: Slack
 
 on:
-  pull_request_review:
-    types: [created]
+  pull_request_review
      
 jobs:
   build:
@@ -13,6 +12,6 @@ jobs:
       uses: slackapi/slack-github-action@v1.19.0
       with:
         channel-id: 'C03GF79DSPM'
-        slack-message: "${{ github.event.review.html_url }} ++ "
+        slack-message: "${{ github.event.review.html_url }} ++ ${{ github.event.action }}"
       env:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
