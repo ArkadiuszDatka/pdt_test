@@ -12,6 +12,6 @@ jobs:
       uses: slackapi/slack-github-action@v1.19.0
       with:
         channel-id: 'U03H3Q9BUBS'
-        slack-message: "${{ github.event.review.html_url }} ++ ${{ github.event.action }}"
+        slack-message: "${{ github.event.review.state }} ${{ github.event.review.html_url }}"
       env:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
