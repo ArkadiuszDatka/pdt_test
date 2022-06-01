@@ -2,7 +2,7 @@ name: Slack
 
 on:
   pull_request:
-    types: [opened]
+    types: all
      
 jobs:
   build:
