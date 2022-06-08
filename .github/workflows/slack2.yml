@@ -2,11 +2,11 @@ name: Slack
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened]
      
 jobs:
   build:
-    if: github.event.pull_request.draft != 1 && !contains( github.event.pull_request.user.login, 'minorittoPella' )
+    if: github.event.pull_request.draft != 1
     runs-on: ubuntu-latest
     steps:
     - name: Post to a Slack channel
