@@ -2,7 +2,7 @@ name: Slack
 
 on:
   pull_request:
-    types: [opened, reopened, ready_for_review, review_requested, locked, auto_merge_disabled]
+    types: [opened, reopened, ready_for_review, review_requested, synchronize]
      
 jobs:
   build:
@@ -14,6 +14,6 @@ jobs:
       uses: slackapi/slack-github-action@v1.19.0
       with:
         channel-id: 'C03GF79DSPM'
-        slack-message: "${{ github.event.pull_request.html_url }} ${{ github.event.pull_request.user.login }}"
+        slack-message: "${{ github.event.pull_request.html_url }} ${{ github.event.pull_request.user.login }} \n 1. action ${{ github.event.action }} \n 2. state ${{ github.event.pull_request.state }} \n 3. locked ${{ github.event.pull_request.locked }} \n 4. mergeable ${{ github.event.pull_request.mergeable }} \n 5. rebaseable ${{ github.event.pull_request.rebaseable }} \n 6. mergeable_state ${{ github.event.pull_request.mergeable_state }} \n"
       env:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
