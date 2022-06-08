@@ -2,7 +2,7 @@ name: Slack
 
 on:
   pull_request:
-    types: [opened, reopened, ready_for_review, review_requested, created]
+    types: [opened, reopened, ready_for_review, review_requested, locked, auto_merge_disabled]
      
 jobs:
   build:
