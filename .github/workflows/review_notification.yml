@@ -5,14 +5,14 @@ on:
      
 jobs:
   build:
-    if: github.event.review.user.login != 'ArkadiuszDatka'
     runs-on: ubuntu-latest
     steps:
-      - name: Post to a Slack channel
+      - name: Review notyfication to ArkadiuszDatka
+        if: github.event.review.user.login != 'ArkadiuszDatka'
         id: slack
         uses: slackapi/slack-github-action@v1.19.0
         with:
           channel-id: 'C03JVC3FK0E'
-          slack-message: "${{ github.event.review.html_url }} ${{ github.event.pull_request.user.login }} ${{ github.event.review }} ${{ github.event.action }}"
+          slack-message: "${{ github.event.review.html_url }} ${{ github.event.review.user.login }}  "
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
