@@ -13,6 +13,6 @@ jobs:
         uses: slackapi/slack-github-action@v1.19.0
         with:
           channel-id: 'C03JVC3FK0E'
-          slack-message: "${{ github.event.review.html_url }} ${{ github.event.pull_request.user.login }} ${{ github.event.review.state }}"
+          slack-message: "${{ github.event.review.html_url }} ${{ github.event.pull_request.user.login }} ${{ github.event.review }} ${{ github.event.action }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
