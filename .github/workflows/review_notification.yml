@@ -5,7 +5,7 @@ on:
      
 jobs:
   build:
-    if: github.event.review.user.id != github.event.pull_request.user.id
+    if: github.event.review.user.login != 'ArkadiuszDatka'
     runs-on: ubuntu-latest
     steps:
       - name: Post to a Slack channel
