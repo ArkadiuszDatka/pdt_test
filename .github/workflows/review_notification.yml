@@ -5,13 +5,14 @@ on:
      
 jobs:
   build:
+    if: github.event.review.user.id != github.event.pull_request.user.id
     runs-on: ubuntu-latest
     steps:
-    - name: Post to a Slack channel
-      id: slack
-      uses: slackapi/slack-github-action@v1.19.0
-      with:
-        channel-id: 'C03GF79DSPM'
-        slack-message: "${{ github.event.review.state }} ${{ github.event.review.html_url }}"
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      - name: Post to a Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.19.0
+        with:
+          channel-id: 'C03JVC3FK0E'
+          slack-message: "${{ github.event.review.html_url }} ${{ github.event.pull_request.user.login }} "
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
